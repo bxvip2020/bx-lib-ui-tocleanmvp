@@ -12,9 +12,6 @@ import com.qihoo360.replugin.RePlugin;
 
 import java.util.Locale;
 
-import static java.sql.DriverManager.println;
-
-
 /**
  * @author jay
  * @date 2020/07/17

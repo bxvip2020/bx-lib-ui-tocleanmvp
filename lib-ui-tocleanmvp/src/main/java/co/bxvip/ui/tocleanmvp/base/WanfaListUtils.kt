@@ -1,7 +1,6 @@
 package co.bxvip.ui.tocleanmvp.base
 
 import android.content.Context
-import co.bxvip.android.test.login.LoginUtil
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.qihoo360.replugin.RePlugin
