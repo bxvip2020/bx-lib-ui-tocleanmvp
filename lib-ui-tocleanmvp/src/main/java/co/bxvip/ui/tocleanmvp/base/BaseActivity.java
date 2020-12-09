@@ -1,8 +1,6 @@
 package co.bxvip.ui.tocleanmvp.base;
 
 import android.content.Context;
-//import android.content.res.Configuration;
-//import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.Color;
 import android.os.Build;
@@ -12,10 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.support.v4.app.FragmentActivity;
+import com.qihoo360.replugin.loader.a.PluginFragmentActivity;
 
-import static co.bxvip.ui.tocleanmvp.base.MultiLanguageUtils.initLanguageInfo;
 import co.bxvip.skin.SkinManager;
 
+import static co.bxvip.ui.tocleanmvp.base.MultiLanguageUtils.initLanguageInfo;
+
+//import android.content.res.Configuration;
+//import android.content.res.Resources;
 /**
  * <pre>
  *     author: vic
@@ -24,14 +27,13 @@ import co.bxvip.skin.SkinManager;
  * </pre>
  */
 // 2. plugin 再 到plugin
-import com.qihoo360.replugin.loader.a.PluginFragmentActivity;
 
-public abstract class BaseActivity extends PluginFragmentActivity implements IBaseAF {
+public abstract class BaseActivity extends FragmentActivity implements IBaseAF {
 
     // 1. notplugin 开放 先创建
 //import android.support.v4.app.FragmentActivity;
 
-//public abstract class BaseActivity extends FragmentActivity implements IBaseAF {
+    //public abstract class BaseActivity extends FragmentActivity implements IBaseAF {
     protected String TAG = this.getClass().getName();
     protected Context mContext;
 
@@ -103,7 +105,7 @@ public abstract class BaseActivity extends PluginFragmentActivity implements IBa
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                                                                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
