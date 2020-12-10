@@ -6,12 +6,11 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.support.v4.app.FragmentActivity;
-import com.qihoo360.replugin.loader.a.PluginFragmentActivity;
 
 import co.bxvip.skin.SkinManager;
 
@@ -19,21 +18,30 @@ import static co.bxvip.ui.tocleanmvp.base.MultiLanguageUtils.initLanguageInfo;
 
 //import android.content.res.Configuration;
 //import android.content.res.Resources;
+
 /**
  * <pre>
- *     author: vic
- *     time  : 18-1-26
- *     desc  : 最底层BaseActivity
+ * author: vic
+ * time  : 18-1-26
+ * desc  : 最底层BaseActivity
+ *
+ * tocleanmvp 分為 plugin 與 notplugin 兩種版本
+ *
+ * plugin 的 BaseActivity 繼承 {@link com.qihoo360.replugin.loader.a.PluginFragmentActivity}
+ * notplugin 的 BaseActivity 繼承 {@link android.support.v4.app.FragmentActivity}
+ *
+ * notplugin 的設定放在 branch/feature-notplugin
+ * plugin 的設定放在 branch/master
+ *
+ * 每次更新 tocleanmvp 後
+ * 在 master 發布 release-plugin
+ * 在 feature-notplugin 發布 release-notplugin
+ *
  * </pre>
  */
-// 2. plugin 再 到plugin
 
 public abstract class BaseActivity extends FragmentActivity implements IBaseAF {
 
-    // 1. notplugin 开放 先创建
-//import android.support.v4.app.FragmentActivity;
-
-    //public abstract class BaseActivity extends FragmentActivity implements IBaseAF {
     protected String TAG = this.getClass().getName();
     protected Context mContext;
 
