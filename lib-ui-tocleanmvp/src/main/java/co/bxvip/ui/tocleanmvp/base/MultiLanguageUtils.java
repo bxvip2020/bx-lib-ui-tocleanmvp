@@ -10,6 +10,8 @@ import android.util.DisplayMetrics;
 
 import com.qihoo360.replugin.RePlugin;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Locale;
 
 /**
@@ -86,14 +88,16 @@ public class MultiLanguageUtils {
      * @param locale      语言地区
      * @param persistence 是否持久化
      */
-    public static void changeAppLanguage(Context context, Locale locale, boolean persistence) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        Configuration configuration = resources.getConfiguration();
-        setLanguage(context, locale, configuration);
-        resources.updateConfiguration(configuration, metrics);
-        if (persistence) {
-            saveLanguageSetting(context, locale);
+    public static void changeAppLanguage(@Nullable Context context, Locale locale, boolean persistence) {
+        if (context != null) {
+            Resources resources = context.getResources();
+            DisplayMetrics metrics = resources.getDisplayMetrics();
+            Configuration configuration = resources.getConfiguration();
+            setLanguage(context, locale, configuration);
+            resources.updateConfiguration(configuration, metrics);
+            if (persistence) {
+                saveLanguageSetting(context, locale);
+            }
         }
     }
 
@@ -177,17 +181,27 @@ public class MultiLanguageUtils {
      * 初始化语言信息
      */
     public static void initLanguageInfo() {
-        String language = (String) SPUtils.get(RePlugin.getHostContext(), "LANGUAGE_TYPE_ID", "");
+        Context hostContext = RePlugin.getHostContext();
+        initLanguageInfo(hostContext);
+    }
+
+    public static void initLanguageInfo(@Nullable Context context) {
+
+        if (context == null) {
+            return;
+        }
+
+        String language = (String) SPUtils.get(context, "LANGUAGE_TYPE_ID", "");
         //切换语言
         if (TextUtils.isEmpty(language)) {
             //设置 默认语言为中文
-            MultiLanguageUtils.changeLanguage(RePlugin.getPluginContext(), LANG_CN, "ZH");
+            MultiLanguageUtils.changeLanguage(context, LANG_CN, "ZH");
         } else if (language.equals(TYPE_ID_CN)) {
             //中文
-            MultiLanguageUtils.changeLanguage(RePlugin.getPluginContext(), LANG_CN, "ZH");
+            MultiLanguageUtils.changeLanguage(context, LANG_CN, "ZH");
         } else if (language.equals(TYPE_ID_EN)) {
             //英文
-            MultiLanguageUtils.changeLanguage(RePlugin.getPluginContext(), LANG_EN, "US");
+            MultiLanguageUtils.changeLanguage(context, LANG_EN, "US");
         }
     }
 }

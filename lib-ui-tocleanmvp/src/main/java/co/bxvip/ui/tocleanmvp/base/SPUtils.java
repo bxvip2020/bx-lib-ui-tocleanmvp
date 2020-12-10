@@ -3,6 +3,9 @@ package co.bxvip.ui.tocleanmvp.base;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -29,11 +32,16 @@ public class SPUtils {
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
      *
-     * @param context
-     * @param key
-     * @param object
+     * @param context context
+     * @param key     value key
+     * @param object  value
      */
-    public static void put(Context context, String key, Object object) {
+    public static void put(@Nullable Context context, String key, Object object) {
+
+        if (context == null) {
+            // if context is null, do nothing
+            return;
+        }
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
@@ -58,12 +66,30 @@ public class SPUtils {
     /**
      * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
      *
-     * @param context
-     * @param key
-     * @param defaultObject
-     * @return
+     * @param context       context
+     * @param key           value key
+     * @param defaultObject default value
+     * @return object
      */
-    public static Object get(Context context, String key, Object defaultObject) {
+    @Nullable
+    public static Object get(@Nullable Context context, @NotNull String key, @NotNull Object defaultObject) {
+
+        if (context == null) {
+            if (defaultObject instanceof String) {
+                return "";
+            } else if (defaultObject instanceof Integer) {
+                return 0;
+            } else if (defaultObject instanceof Boolean) {
+                return false;
+            } else if (defaultObject instanceof Float) {
+                return 0f;
+            } else if (defaultObject instanceof Long) {
+                return 0L;
+            } else {
+                return "";
+            }
+        }
+
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 
         if (defaultObject instanceof String) {
@@ -78,7 +104,7 @@ public class SPUtils {
             return sp.getLong(key, (Long) defaultObject);
         }
 
-        return null;
+        return "";
     }
 
     /**
@@ -147,5 +173,4 @@ public class SPUtils {
             editor.commit();
         }
     }
-
 }
