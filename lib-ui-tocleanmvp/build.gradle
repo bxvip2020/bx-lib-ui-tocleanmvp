@@ -25,6 +25,7 @@ android {
 
 dependencies {
     compileOnly 'com.github.bxvip2020:android-support:26.0.2.11.12'
+    compileOnly 'com.github.bxvip2020:bx-lib-aidl-icache:1.0.0'
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compileOnly "com.qihoo360.replugin:replugin-plugin-lib:$replugin_version"
     compileOnly gson
